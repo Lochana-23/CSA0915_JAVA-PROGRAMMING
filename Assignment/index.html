@@ -1,0 +1,484 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Bank Management System</title>
+
+    <style>
+        body{
+            margin:0;
+            font-family:"Times New Roman",serif;
+            background:white;
+            color:#000;
+        }
+
+        .header{
+            border-bottom:2px solid #000;
+            padding:20px;
+            text-align:center;
+        }
+
+        .header h1{
+            margin:0;
+            font-size:30px;
+        }
+
+        .header p{
+            margin:8px 0 0;
+            font-size:18px;
+        }
+
+        .container{
+            width:90%;
+            margin:25px auto;
+        }
+
+        .section{
+            border:1px solid #000;
+            margin-bottom:20px;
+            padding:20px;
+        }
+
+        .section h2{
+            margin-top:0;
+            font-size:23px;
+            border-bottom:1px solid #000;
+            padding-bottom:8px;
+        }
+
+        .form-row{
+            display:flex;
+            gap:15px;
+            flex-wrap:wrap;
+            margin-bottom:15px;
+        }
+
+        label{
+            font-size:18px;
+            font-weight:bold;
+        }
+
+        input,select{
+            padding:9px;
+            border:1px solid #000;
+            font-family:"Times New Roman",serif;
+            font-size:16px;
+        }
+
+        button{
+            padding:10px 20px;
+            margin:5px;
+            background:white;
+            border:2px solid #000;
+            font-family:"Times New Roman",serif;
+            font-size:17px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#eeeeee;
+        }
+
+        .dashboard{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:15px;
+        }
+
+        .card{
+            border:1px solid #000;
+            padding:18px;
+            text-align:center;
+        }
+
+        .card h3{
+            margin:5px;
+            font-size:20px;
+        }
+
+        .card p{
+            font-size:24px;
+            font-weight:bold;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:15px;
+        }
+
+        th,td{
+            border:1px solid #000;
+            padding:10px;
+            text-align:center;
+            font-size:16px;
+        }
+
+        th{
+            font-weight:bold;
+        }
+
+        #message{
+            padding:12px;
+            border:1px solid #000;
+            margin-top:15px;
+            font-size:18px;
+        }
+
+        .footer{
+            text-align:center;
+            border-top:2px solid #000;
+            padding:15px;
+            margin-top:30px;
+            font-size:16px;
+        }
+
+        @media(max-width:700px){
+            .dashboard{
+                grid-template-columns:1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>SMART BANK MANAGEMENT SYSTEM</h1>
+    <p>JavaScript Based Banking Application</p>
+</div>
+
+<div class="container">
+
+    <div class="section">
+        <h2>Account Management</h2>
+
+        <div class="form-row">
+            <div>
+                <label>Account Number</label><br>
+                <input type="number" id="accountNumber" placeholder="Enter account number">
+            </div>
+
+            <div>
+                <label>Customer Name</label><br>
+                <input type="text" id="customerName" placeholder="Enter customer name">
+            </div>
+
+            <div>
+                <label>Account Type</label><br>
+                <select id="accountType">
+                    <option value="Savings">Savings Account</option>
+                    <option value="Checking">Checking Account</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Initial Balance</label><br>
+                <input type="number" id="initialBalance" placeholder="Enter balance">
+            </div>
+        </div>
+
+        <button onclick="createAccount()">Create Account</button>
+    </div>
+
+
+    <div class="section">
+        <h2>Banking Operations</h2>
+
+        <div class="form-row">
+            <div>
+                <label>Account Number</label><br>
+                <input type="number" id="operationAccount" placeholder="Enter account number">
+            </div>
+
+            <div>
+                <label>Amount</label><br>
+                <input type="number" id="amount" placeholder="Enter amount">
+            </div>
+        </div>
+
+        <button onclick="deposit()">Deposit</button>
+        <button onclick="withdraw()">Withdraw</button>
+        <button onclick="checkBalance()">Check Balance</button>
+
+        <div id="message">
+            System ready. Please select an operation.
+        </div>
+    </div>
+
+
+    <div class="section">
+        <h2>Bank Dashboard</h2>
+
+        <div class="dashboard">
+
+            <div class="card">
+                <h3>Total Accounts</h3>
+                <p id="totalAccounts">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Balance</h3>
+                <p id="totalBalance">₹0.00</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Transactions</h3>
+                <p id="totalTransactions">0</p>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="section">
+        <h2>Account Records</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Account Number</th>
+                    <th>Customer Name</th>
+                    <th>Account Type</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+
+            <tbody id="accountTable">
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="section">
+        <h2>Transaction History</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Account Number</th>
+                    <th>Operation</th>
+                    <th>Amount</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+
+            <tbody id="transactionTable">
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<div class="footer">
+    Smart Bank Management System | Academic Project
+</div>
+
+
+<script>
+
+    let accounts = new Map();
+    let transactions = [];
+
+
+    function createAccount(){
+
+        let number = document.getElementById("accountNumber").value;
+        let name = document.getElementById("customerName").value;
+        let type = document.getElementById("accountType").value;
+        let balance = Number(document.getElementById("initialBalance").value);
+
+        if(number === "" || name === "" || balance < 0){
+            showMessage("Please enter valid account details.");
+            return;
+        }
+
+        if(accounts.has(number)){
+            showMessage("Account already exists.");
+            return;
+        }
+
+        let account = {
+            number:number,
+            name:name,
+            type:type,
+            balance:balance
+        };
+
+        accounts.set(number,account);
+
+        updateAccounts();
+
+        showMessage("Account created successfully.");
+
+        document.getElementById("accountNumber").value="";
+        document.getElementById("customerName").value="";
+        document.getElementById("initialBalance").value="";
+    }
+
+
+    function deposit(){
+
+        let number = document.getElementById("operationAccount").value;
+        let amount = Number(document.getElementById("amount").value);
+
+        if(!accounts.has(number)){
+            showMessage("Invalid account number.");
+            return;
+        }
+
+        if(amount <= 0){
+            showMessage("Enter a valid amount.");
+            return;
+        }
+
+        let account = accounts.get(number);
+
+        account.balance = account.balance + amount;
+
+        transactions.push({
+            number:number,
+            operation:"Deposit",
+            amount:amount,
+            balance:account.balance
+        });
+
+        updateAccounts();
+        updateTransactions();
+
+        showMessage("Deposit successful. Current Balance: ₹" +
+        account.balance.toFixed(2));
+
+        document.getElementById("amount").value="";
+    }
+
+
+    function withdraw(){
+
+        let number = document.getElementById("operationAccount").value;
+        let amount = Number(document.getElementById("amount").value);
+
+        if(!accounts.has(number)){
+            showMessage("Invalid account number.");
+            return;
+        }
+
+        if(amount <= 0){
+            showMessage("Enter a valid amount.");
+            return;
+        }
+
+        let account = accounts.get(number);
+
+        if(amount > account.balance){
+            showMessage("Insufficient balance. Withdrawal failed.");
+            return;
+        }
+
+        account.balance = account.balance - amount;
+
+        transactions.push({
+            number:number,
+            operation:"Withdraw",
+            amount:amount,
+            balance:account.balance
+        });
+
+        updateAccounts();
+        updateTransactions();
+
+        showMessage("Withdrawal successful. Current Balance: ₹" +
+        account.balance.toFixed(2));
+
+        document.getElementById("amount").value="";
+    }
+
+
+    function checkBalance(){
+
+        let number = document.getElementById("operationAccount").value;
+
+        if(!accounts.has(number)){
+            showMessage("Invalid account number.");
+            return;
+        }
+
+        let account = accounts.get(number);
+
+        showMessage(
+            "Account Holder: " + account.name +
+            " | Account Type: " + account.type +
+            " | Current Balance: ₹" +
+            account.balance.toFixed(2)
+        );
+    }
+
+
+    function updateAccounts(){
+
+        let table = document.getElementById("accountTable");
+
+        table.innerHTML="";
+
+        let totalBalance=0;
+
+        accounts.forEach(function(account){
+
+            totalBalance += account.balance;
+
+            let row = table.insertRow();
+
+            row.insertCell(0).innerHTML=account.number;
+            row.insertCell(1).innerHTML=account.name;
+            row.insertCell(2).innerHTML=account.type;
+            row.insertCell(3).innerHTML="₹" +
+            account.balance.toFixed(2);
+
+        });
+
+        document.getElementById("totalAccounts").innerHTML=accounts.size;
+
+        document.getElementById("totalBalance").innerHTML=
+        "₹" + totalBalance.toFixed(2);
+
+        document.getElementById("totalTransactions").innerHTML=
+        transactions.length;
+    }
+
+
+    function updateTransactions(){
+
+        let table = document.getElementById("transactionTable");
+
+        table.innerHTML="";
+
+        transactions.forEach(function(transaction){
+
+            let row = table.insertRow();
+
+            row.insertCell(0).innerHTML=transaction.number;
+            row.insertCell(1).innerHTML=transaction.operation;
+            row.insertCell(2).innerHTML="₹" +
+            transaction.amount.toFixed(2);
+            row.insertCell(3).innerHTML="₹" +
+            transaction.balance.toFixed(2);
+
+        });
+
+        document.getElementById("totalTransactions").innerHTML=
+        transactions.length;
+    }
+
+
+    function showMessage(text){
+
+        document.getElementById("message").innerHTML=text;
+
+    }
+
+</script>
+
+</body>
+</html>
+```
